@@ -1,0 +1,13 @@
+#!/bin/bash
+display=$1
+if [[ $display != *:* ]] &&  [[ "$*" != *--nowindow* ]] && [[ "$*" != *--help* ]] && [[ "$*" != "" ]]; then
+    echo 'You must specify an X display to run on e.g. tcv $DISPLAY or use the --nowindow argument.'
+    exit 1
+elif [[ "$*" == "" ]]; then
+    python cli.py --help
+    exit 0
+fi
+if [[ $display == *:* ]]; then
+    shift
+fi
+TF_CPP_MIN_LOG_LEVEL=1 DISPLAY=$display python cli.py $*
